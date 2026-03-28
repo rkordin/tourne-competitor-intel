@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TOURNE MOBIL — Visual Campervan Comparison</title>
+  <link rel="stylesheet" href="https://use.typekit.net/lev2yfk.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal: #37B4B4;
+      --teal-dk: #2FA09B;
+      --teal-light: rgba(55, 180, 180, 0.08);
+      --dark: #363635;
+      --off-white: #F5F6F8;
+      --light-grey: #E8EAF0;
+      --mid-grey: #9BA3B2;
+      --warm-grey: #6B7280;
+      --glass: rgba(255,255,255,0.72);
+      --glass-border: rgba(255,255,255,0.18);
+      --glass-shadow: 0 8px 32px rgba(0,0,0,0.08);
+      --font-heading: 'prometo', Arial, sans-serif;
+      --font-body: 'franklin-gothic-urw', Arial, sans-serif;
+      --font-data: 'franklin-gothic-urw-cond', Arial, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: #0D1117;
+      color: #E6EDF3;
+      font-size: 15px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ═══ GLOSSY LIQUID BACKGROUND ═══ */
+    .bg-liquid {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(ellipse 80% 50% at 20% 20%, rgba(55, 180, 180, 0.15), transparent),
+        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(55, 180, 180, 0.1), transparent),
+        radial-gradient(ellipse 50% 60% at 50% 50%, rgba(30, 40, 60, 0.3), transparent),
+        #0D1117;
+    }
+
+    /* ═══ HERO ═══ */
+    .hero {
+      padding: 64px 48px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(55,180,180,0.2), transparent 70%);
+      filter: blur(80px);
+      pointer-events: none;
+    }
+    .hero-inner {
+      position: relative;
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+    .hero-brand {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 12px;
+    }
+    .hero-title {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 48px;
+      color: #fff;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      max-width: 700px;
+      background: linear-gradient(135deg, #fff 0%, var(--teal) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      color: var(--mid-grey);
+      font-size: 16px;
+      margin-top: 16px;
+      max-width: 600px;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+      margin-top: 32px;
+    }
+    .hero-stat .num {
+      font-family: var(--font-heading);
+      font-size: 56px;
+      font-weight: 700;
+      color: var(--teal);
+      line-height: 1;
+    }
+    .hero-stat .lbl {
+      font-size: 11px;
+      color: var(--mid-grey);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-top: 4px;
+    }
+
+    /* ═══ GLASS TOOLBAR ═══ */
+    .toolbar {
+      background: var(--glass);
+      backdrop-filter: blur(20px) saturate(1.8);
+      -webkit-backdrop-filter: blur(20px) saturate(1.8);
+      border-bottom: 1px solid var(--glass-border);
+      padding: 12px 32px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .toolbar-label {
+      font-size: 10px;
+      color: var(--warm-grey);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 700;
+    }
+    .toolbar-divider { width: 1px; height: 24px; background: rgba(255,255,255,0.1); margin: 0 6px; }
+    .search-input {
+      font-family: var(--font-body);
+      font-size: 13px;
+      padding: 8px 16px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(0,0,0,0.3);
+      color: #fff;
+      width: 220px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .search-input:focus { border-color: var(--teal); }
+    .search-input::placeholder { color: var(--mid-grey); }
+    .btn {
+      font-family: var(--font-body);
+      font-size: 11px;
+      padding: 6px 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+      color: var(--mid-grey);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn:hover { border-color: var(--teal); color: var(--teal); background: rgba(55,180,180,0.08); }
+    .btn.active { background: var(--teal); color: #fff; border-color: var(--teal); }
+    .results-count {
+      font-family: var(--font-data);
+      font-size: 12px;
+      color: var(--mid-grey);
+      margin-left: auto;
+    }
+
+    /* ═══ LAYOUT LEGEND ═══ */
+    .legend {
+      max-width: 1440px;
+      margin: 24px auto 0;
+      padding: 0 32px;
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: var(--mid-grey);
+    }
+    .legend-swatch {
+      width: 16px;
+      height: 16px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .sw-bed { background: #4A90D9; }
+    .sw-kitchen { background: #E67E22; }
+    .sw-bath { background: #27AE60; }
+    .sw-seating { background: #9B59B6; }
+    .sw-garage { background: #7F8C8D; }
+
+    /* ═══ CONTENT ═══ */
+    .content { max-width: 1440px; margin: 0 auto; padding: 32px; }
+
+    /* ═══ BRAND SECTIONS ═══ */
+    .brand-section {
+      margin-bottom: 48px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      overflow: hidden;
+    }
+    .brand-header {
+      padding: 24px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: background 0.2s;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .brand-header:hover { background: rgba(55,180,180,0.05); }
+    .brand-header-left { display: flex; align-items: center; gap: 20px; }
+    .brand-logo-circle {
+      width: 48px; height: 48px;
+      background: linear-gradient(135deg, var(--teal), var(--teal-dk));
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 18px;
+      color: #fff;
+    }
+    .brand-title {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 24px;
+      color: #fff;
+    }
+    .brand-subtitle {
+      font-size: 12px;
+      color: var(--mid-grey);
+      margin-top: 2px;
+    }
+    .brand-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+    .brand-tag {
+      font-family: var(--font-data);
+      font-size: 10px;
+      padding: 3px 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--mid-grey);
+    }
+    .brand-tag.t-ducato { border-color: rgba(232,213,183,0.4); color: #D4A94B; }
+    .brand-tag.t-sprinter { border-color: rgba(197,213,232,0.4); color: #6BA3D4; }
+    .brand-tag.t-crafter { border-color: rgba(213,213,232,0.4); color: #8A8AD4; }
+    .brand-tag.t-transit { border-color: rgba(213,232,213,0.4); color: #5CB85C; }
+    .brand-tag.t-peugeot { border-color: rgba(232,213,232,0.4); color: #D48AD4; }
+    .brand-tag.t-4x4 { border-color: rgba(231,76,60,0.4); color: #E74C3C; }
+    .brand-tag.t-poptop { border-color: rgba(39,174,96,0.4); color: #27AE60; }
+    .brand-tag.t-highlight { background: var(--teal); color: #fff; border-color: var(--teal); }
+    .toggle-icon {
+      font-size: 24px;
+      color: var(--mid-grey);
+      transition: transform 0.3s;
+    }
+    .brand-section.open .toggle-icon { transform: rotate(180deg); }
+
+    /* ═══ MODEL CARDS ═══ */
+    .models-grid {
+      display: none;
+      padding: 24px;
+      gap: 20px;
+    }
+    .brand-section.open .models-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); }
+
+    .model-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+    .model-card:hover {
+      border-color: var(--teal);
+      box-shadow: 0 8px 40px rgba(55,180,180,0.12);
+      transform: translateY(-2px);
+    }
+
+    .model-image-wrap {
+      position: relative;
+      height: 220px;
+      overflow: hidden;
+      background: rgba(0,0,0,0.3);
+    }
+    .model-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s;
+    }
+    .model-card:hover .model-image-wrap img { transform: scale(1.05); }
+    .model-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      font-family: var(--font-data);
+      font-size: 10px;
+      padding: 4px 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .badge-4x4 { background: rgba(231,76,60,0.85); color: #fff; }
+    .badge-poptop { background: rgba(39,174,96,0.85); color: #fff; }
+    .badge-new { background: rgba(55,180,180,0.9); color: #fff; }
+
+    .model-info { padding: 20px; }
+    .model-name {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 18px;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .model-series {
+      font-family: var(--font-data);
+      font-size: 11px;
+      color: var(--teal);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 12px;
+    }
+    .model-chassis {
+      font-size: 12px;
+      color: var(--mid-grey);
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    /* LAYOUT DIAGRAM (CSS-drawn) */
+    .layout-diagram {
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 12px;
+      margin-bottom: 16px;
+      position: relative;
+      height: 80px;
+      overflow: hidden;
+    }
+    .layout-label {
+      font-family: var(--font-data);
+      font-size: 9px;
+      color: var(--mid-grey);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 6px;
+    }
+    .layout-bar {
+      display: flex;
+      height: 44px;
+      border: 1px solid rgba(255,255,255,0.1);
+      overflow: hidden;
+      position: relative;
+    }
+    .layout-zone {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-data);
+      font-size: 9px;
+      color: rgba(255,255,255,0.8);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-right: 1px solid rgba(255,255,255,0.1);
+      position: relative;
+      overflow: hidden;
+    }
+    .layout-zone:last-child { border-right: none; }
+    .z-cab { background: rgba(100,100,120,0.3); flex: 0 0 15%; }
+    .z-seating { background: rgba(155,89,182,0.25); }
+    .z-kitchen { background: rgba(230,126,34,0.25); }
+    .z-bath { background: rgba(39,174,96,0.25); }
+    .z-bed { background: rgba(74,144,217,0.25); }
+    .z-garage { background: rgba(127,140,141,0.2); }
+
+    .model-specs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    .spec-item { text-align: center; }
+    .spec-val {
+      font-family: var(--font-data);
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+    }
+    .spec-lbl {
+      font-size: 9px;
+      color: var(--mid-grey);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* ═══ FOOTER ═══ */
+    .footer {
+      padding: 32px 48px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      margin-top: 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1440px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .footer-brand {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--teal);
+    }
+    .footer-note { font-size: 11px; color: var(--mid-grey); }
+
+    @media (max-width: 768px) {
+      .hero { padding: 32px 20px; }
+      .hero-title { font-size: 32px; }
+      .hero-stats { gap: 24px; }
+      .hero-stat .num { font-size: 36px; }
+      .content { padding: 16px; }
+      .brand-section.open .models-grid { grid-template-columns: 1fr; }
+      .model-specs { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+<div class="bg-liquid"></div>
+
+<!-- ═══ HERO ═══ -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-brand">Tourne Mobil &mdash; Visual Competitive Intelligence</div>
+    <h1 class="hero-title">Campervan Layouts &<br>Floor Plan Comparison</h1>
+    <p class="hero-sub">Every model. Every layout. Bed positions, kitchen configurations, bathroom types — all visualized. Click any brand to explore their complete model range.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="num" id="statBrands">36</div><div class="lbl">Brands</div></div>
+      <div class="hero-stat"><div class="num" id="statModels">350+</div><div class="lbl">Models</div></div>
+      <div class="hero-stat"><div class="num">1,115</div><div class="lbl">Images</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TOOLBAR ═══ -->
+<div class="toolbar">
+  <input type="text" class="search-input" id="searchInput" placeholder="Search brands or models..." oninput="filterAll()">
+  <div class="toolbar-divider"></div>
+  <span class="toolbar-label">Platform</span>
+  <button class="btn" data-f="ducato" onclick="toggleF(this)">Ducato</button>
+  <button class="btn" data-f="sprinter" onclick="toggleF(this)">Sprinter</button>
+  <button class="btn" data-f="crafter" onclick="toggleF(this)">VW/MAN</button>
+  <button class="btn" data-f="transit" onclick="toggleF(this)">Ford</button>
+  <button class="btn" data-f="peugeot" onclick="toggleF(this)">Peugeot</button>
+  <div class="toolbar-divider"></div>
+  <span class="toolbar-label">Features</span>
+  <button class="btn" data-f="4x4" onclick="toggleF(this)">4x4</button>
+  <button class="btn" data-f="poptop" onclick="toggleF(this)">Pop-top</button>
+  <div class="toolbar-divider"></div>
+  <span class="toolbar-label">Layout</span>
+  <button class="btn" data-f="bed-rear-transverse" onclick="toggleF(this)">Rear Transverse Bed</button>
+  <button class="btn" data-f="bed-rear-longitudinal" onclick="toggleF(this)">Twin Longitudinal</button>
+  <button class="btn" data-f="bed-dropdown" onclick="toggleF(this)">Drop-down Bed</button>
+  <button class="btn" data-f="bed-french" onclick="toggleF(this)">French Bed</button>
+  <span class="results-count" id="resultsCount"></span>
+</div>
+
+<!-- ═══ LEGEND ═══ -->
+<div class="legend">
+  <div class="legend-item"><div class="legend-swatch sw-seating"></div>Cab / Seating</div>
+  <div class="legend-item"><div class="legend-swatch sw-kitchen"></div>Kitchen</div>
+  <div class="legend-item"><div class="legend-swatch sw-bath"></div>Bathroom</div>
+  <div class="legend-item"><div class="legend-swatch sw-bed"></div>Bed</div>
+  <div class="legend-item"><div class="legend-swatch sw-garage"></div>Garage / Storage</div>
+</div>
+
+<!-- ═══ CONTENT ═══ -->
+<div class="content" id="content"></div>
+
+<!-- ═══ FOOTER ═══ -->
+<div class="footer">
+  <div class="footer-brand">Tourne Mobil</div>
+  <div class="footer-note">1,115 images &middot; 36 brands &middot; 24 DATA.md dossiers &middot; March 2026</div>
+</div>
+
+<script>
+// ═════════════════════════════════════════════════
+// VISUAL COMPARISON DATA — LAYOUTS + IMAGES
+// ═════════════════════════════════════════════════
+
+const data = [
+  {
+    brand: "Tourne Mobil", country: "Slovenia", parent: "Independent", founded: 2020,
+    platforms: ["ducato"], has4x4: false, hasPoptop: false, highlight: true,
+    tagline: "Intelligent, custom-fitted campervans that change the way we think about mobility.",
+    models: [
+      { name: "Select 6.0", series: "Select", length: 600, seats: 4, berths: 4, chassis: "Fiat Ducato", poptop: false, fourx4: false, bedType: "bed-rear-transverse", layout: [{z:"z-cab",w:15,l:"Cab"},{z:"z-seating",w:20,l:"Seating"},{z:"z-kitchen",w:15,l:"Kitchen"},{z:"z-bath",w:15,l:"Bath"},{z:"z-bed",w:25,l:"Bed"},{z:"z-garage",w:10,l:"Garage"}] },
+      { name: "Select 6.4", series: "Select", length: 636, seats: 4, berths: 4, chassis: "Fiat Ducato", poptop: false, fourx4: false, bedType: "bed-rear-transverse", layout: [{z:"z-cab",w:14,l:"Cab"},{z:"z-seating",w:20,l:"Seating"},{z:"z-kitchen",w:15,l:"Kitchen"},{z:"z-bath",w:15,l:"Bath"},{z:"z-bed",w:25,l:"Bed"},{z:"z-garage",w:11,l:"Garage"}] },
+      { name: "Cruise 6.0", series: "Cruise", length: 600, seats: 4, berths: 4, chassis: "Fiat Ducato", poptop: false, fourx4: false, bedType: "bed-rear-transverse", layout: [{z:"z-cab",w:15,l:"Cab"},{z:"z-seating",w:20,l:"Seating"},{z:"z-kitchen",w:15,l:"Kitchen"},{z:"z-bath",w:15,l:"Bath"},{z:"z-bed",w:25,l:"Bed"},{z:"z-garage",w:10,l:"Garage"}] },
+      { name: "Cruise 6.4", series: "Cruise", length: 636, seats: 4, berths: 4, chassis: "Fiat Ducato", poptop: false, fourx4: false, bedType: "bed-rear-transverse", layout: [{z:"z-cab",w:14,l:"Cab"},{z:"z-seating",w:20,l:"Seating"},{z:"z-kitchen",w:15,l:"Kitchen"},{z:"z-bath",w:15,l:"Bath"},{z:"z-bed",w:25,l:"Bed"},{z:"z-garage",w:11,l:"Garage"}] },
+    ]
+  },
+  {
+    brand: "Adria Mobil", country: "Slovenia", parent: "Trigano Group", founded: 1965,
+    platforms: ["ducato","crafter","sprinter"], has4x4: true, hasPoptop: true,
+    tagline: "Award-winning Twins. 500+ dealers, ~7% EU market share.",
+    models: [
+      { name: "Twin 600 SPB", series: "Twin", length: 600, seats: 4, berths: 2, chassis: "Fiat Ducato", poptop: false, fourx4: false, bedType: "bed-rear-transverse", layout: [{z:"z-cab",w:15,l:"Cab"},{z:"z-seating",w:22,l:"Seating"},{z:"z-kitchen",w:15,l:"Kitchen"},{z:"z-bath",w:13,l:"Bath"},{z:"z-bed",w:25,l:"Bed"},{z:"z-garage",w:10,l:"Garage"}] },
+      { name: "Twin Sports 600 SPB", series: "Twin Sports", length: 600, seats: 4, berths: 4, chassis: "Fiat Ducato", poptop: true, fourx4: false, bedType: "bed-rear-transverse", layout: [{z:"z-cab",w:15,l:"Cab"},{z:"z-seating",w:22,l:"Seating"},{z:"z-kitchen",w:15,l:"Kitchen"},{z:"z-bath",w:13,l:"Bath"},{z:"z-bed",w:25,l:"Bed"},{z:"z-garage",w:10,l:"Garage"}] },
+      { name: "Twin Supreme 640 SGX", series: "Twin Supreme", length: 636, seats: 4, berths: 2, chassis: "Fiat Ducato", poptop: false, fourx4: false, bedType: "bed-dropdown", layout: [{z:"z-cab",w:14,l:"Cab"},{z:"z-seating",w:18,l:"Seating"},{z:"z-kitchen",w:15,l:"Kitchen"},{z:"z-bath",w:13,l:"Bath"},{z:"z-bed",w:20,l:"Lift Bed"},{z:"z-garage",w:20,l:"Garage"}] },
+      { name: "Twin Max 680 SLB", series: "Twin Max", length: 684, seats: 4, berths: 2, chassis: "VW Crafter", poptop: false, fourx4: false, bedType: "bed-rear-longitudinal", layout: [{z:"z-cab",w:13,l:"Cab"},{z:"z-seating",w:20,l:"Seating"},{z:"z-kitchen",w:14,l:"Kitchen"},{z:"z-bath",w:13,l:"Bath"},{z:"z-bed",w:30,l:"Twin Beds"},{z:"z-garage",w:10,l:"Garage"}] },
+      { name: "Supertwin 600 SPB", series: "Supertwin 4x4", length: 593, seats: 4, berths: 2, chassis: "Mercedes Sprinter 4x4", poptop: false, fourx4: true, bedType: "bed-rear-transverse", layout: [{z:"z-cab",w:15,l:"Cab"},{z:"z-seating",w:22,l:"Seating"},{z:"z-kitchen",w:14,l:"Kitchen"},{z:"z-bath",w:14,l:"Bath"},{z:"z-bed",w:25,l:"Bed"},{z:"z-garage",w:10,l:"Garage"}] },
+    ]
+  },
+  {
+    brand: "Bravia Mobil", country: "Slovenia", parent: "Independent (family)", founded: 2005,
+    platforms: ["peugeot","sprinter"], has4x4: false, hasPoptop: true,
+    tagline: "Life is a journey. Enjoy the ride. Solid wood furniture, joinery heritage.",
+    models: [
+      { name: "Swan 495", series: "Swan", length: 496, seats: 7, berths: 4, chassis: "Peugeot Traveller", poptop: true, fourx4: false, bedType: "bed-rear-transverse", layout: [{z:"z-cab",w:18,l:"Cab"},{z:"z-seating",w:25,l:"Seating"},{z:"z-kitchen",w:20,l:"Kitchen"},{z:"z-bed",w:37,l:"Bed + Pop"}] },
+      { name: "Swan 599", series: "Swan", length: 600, seats: 4, berths: 3, chassis: "Peugeot Boxer", poptop: false, fourx4: false, bedType: "bed-rear-transverse", layout: [{z:"z-cab",w:15,l:"Cab"},{z:"z-seating",w:20,l:"Seating"},{z:"z-kitchen",w:15,l:"Kitchen"},{z:"z-bath",w:13,l:"Bath"},{z:"z-bed",w:27,l:"Bed"},{z:"z-garage",w:10,l:"Garage"}] },
+      { name: "Swan 599 Narvik", series: "Swan", length: 600, seats: 4, berths: 3, chassis: "Peugeot Boxer", poptop: false, fourx4: false, bedType: "bed-rear-transverse", layout: [{z:"z-cab",w:15,l:"Cab"},{z:"z-seating",w:20,l:"Seating"},{z:"z-kitchen",w:15,l:"Kitchen"},{z:"z-bath",w:13,l:"Bath"},{z:"z-bed",w:27,l:"Bed"},{z:"z-garage",w:10,l:"Garage"}] },
+      { name: "Swan 636", series: "Swan", length: 636, seats: 4, berths: 3, chassis: "Peugeot Boxer", poptop: true, fourx4: false, bedType: "bed-rear-longitudinal", layout: [{z:"z-cab",w:14,l:"Cab"},{z:"z-seating",w:18,l:"Seating"},{z:"z-kitchen",w:15,l:"Kitchen"},{z:"z-bath",w:13,l:"Bath"},{z:"z-bed",w:30,l:"Twin Beds"},{z:"z-garage",w:10,l:"Garage"}] },
+      { name: "Swan 699", series: "Swan", length: 699, seats: 4, berths: 4, chassis: "Mercedes Sprinter", poptop: false, fourx4: false, bedType: "bed-rear-longitudinal", layout: [{z:"z-cab",w:12,l:"Cab"},{z:"z-seating",w:18,l:"Seating"},{z:"z-kitchen",w:14,l:"Kitchen"},{z:"z-bath",w:12,l:"Bath"},{z:"z-bed",w:28,l:"Twin Beds"},{z:"z-garage",w:16,l:"Lounge"}] },
+    ]
+  },
+  {
+    brand: "Mega Mobil", country: "Slovenia", parent: "MegaTektil d.o.o.", founded: 2014,
+    platforms: ["ducato","peugeot","crafter","sprinter"], has4x4: true, hasPoptop: false,
+    tagline: "Patented comfort bathroom. Victron electrics. Best Luxury Campervan 2026.",
+    models: [
+      { name: "Classic 600", series: "Classic", length: 600, seats: 4, berths: 2, chassis: "Fiat Ducato / Peugeot Boxer", poptop: false, fourx4: false, bedType: "bed-rear-transverse", layout: [{z:"z-cab",w:15,l:"Cab"},{z:"z-seating",w:20,l:"Seating"},{z:"z-kitchen",w:15,l:"Kitchen"},{z:"z-bath",w:15,l:"Bath"},{z:"z-bed",w:25,l:"Bed"},{z:"z-garage",w:10,l:"Garage"}] },
+      { name: "Lounge 640", series: "Lounge", length: 636, seats: 4, berths: 3, chassis: "Peugeot Boxer L4H3", poptop: false, fourx4: false, bedType: "bed-dropdown", layout: [{z:"z-cab",w:14,l:"Cab"},{z:"z-seating",w:25,l:"U-Lounge"},{z:"z-kitchen",w:13,l:"Kitchen"},{z:"z-bath",w:15,l:"Bath"},{z:"z-bed",w:23,l:"Drop Bed"},{z:"z-garage",w:10,l:"Garage"}] },
+      { name: "Re-Aktiv 680 S", series: "Re-Aktiv", length: 684, seats: 4, berths: 3, chassis: "MAN TGE / VW Crafter 4x4", poptop: false, fourx4: true, bedType: "bed-dropdown", layout: [{z:"z-cab",w:13,l:"Cab"},{z:"z-seating",w:22,l:"Seating"},{z:"z-kitchen",w:14,l:"Kitchen"},{z:"z-bath",w:14,l:"Bath"},{z:"z-bed",w:25,l:"Drop Bed"},{z:"z-garage",w:12,l:"Garage"}] },
+      { name: "Re-Aktiv 700 MAX", series: "Re-Aktiv", length: 697, seats: 4, berths: 4, chassis: "MAN TGE / Sprinter 4x4", poptop: false, fourx4: true, bedType: "bed-dropdown", layout: [{z:"z-cab",w:12,l:"Cab"},{z:"z-seating",w:20,l:"Seating"},{z:"z-kitchen",w:14,l:"Kitchen"},{z:"z-bath",w:14,l:"Bath"},{z:"z-bed",w:25,l:"Drop Bed"},{z:"z-garage",w:15,l:"Garage"}] },
+      { name: "Revolution 640", series: "Revolution", length: 636, seats: 4, berths: 4, chassis: "Peugeot Boxer", poptop: false, fourx4: false, bedType: "bed-dropdown", layout: [{z:"z-cab",w:14,l:"Cab"},{z:"z-seating",w:22,l:"Seating"},{z:"z-kitchen",w:14,l:"Kitchen"},{z:"z-bath",w:14,l:"Bath"},{z:"z-bed",w:24,l:"Drop Bed"},{z:"z-garage",w:12,l:"Garage"}] },
+    ]
+  },
+  {
+    brand: "Hymer", country: "Germany", parent: "Thor Industries", founded: 1957,
+    platforms: ["ducato","sprinter"], has4x4: true, hasPoptop: true,
+    tagline: "The inventor of the motorhome. Smart Battery System. Hymer Connect app.",
+    models: [
+      { name: "Ayers Rock", series: "Campervans Fiat", length: 541, seats: 4, berths: 2, chassis: "Fiat Ducato", poptop: true, fourx4: false, bedType: "bed-rear-transverse", layout: [{z:"z-cab",w:16,l:"Cab"},{z:"z-seating",w:22,l:"Seating"},{z:"z-kitchen",w:15,l:"Kitchen"},{z:"z-bath",w:14,l:"Bath"},{z:"z-bed",w:23,l:"Bed"},{z:"z-garage",w:10,l:"Garage"}] },
+      { name: "Yellowstone 601", series: "Campervans Fiat", length: 601, seats: 4, berths: 2, chassis: "Fiat Ducato", poptop: true, fourx4: false, bedType: "bed-rear-transverse", layout: [{z:"z-cab",w:15,l:"Cab"},{z:"z-seating",w:22,l:"Seating"},{z:"z-kitchen",w:14,l:"Kitchen"},{z:"z-bath",w:14,l:"Bath"},{z:"z-bed",w:25,l:"Bed"},{z:"z-garage",w:10,l:"Garage"}] },
+      { name: "Grand Canyon S 600", series: "Grand Canyon S", length: 593, seats: 4, berths: 2, chassis: "Mercedes Sprinter", poptop: true, fourx4: true, bedType: "bed-rear-transverse", layout: [{z:"z-cab",w:15,l:"Cab"},{z:"z-seating",w:22,l:"Seating"},{z:"z-kitchen",w:14,l:"Kitchen"},{z:"z-bath",w:14,l:"Bath"},{z:"z-bed",w:25,l:"Bed"},{z:"z-garage",w:10,l:"Garage"}] },
+      { name: "Grand Canyon S CrossOver", series: "Grand Canyon S", length: 593, seats: 4, berths: 2, chassis: "Mercedes Sprinter 4x4 AWD", poptop: true, fourx4: true, bedType: "bed-rear-transverse", layout: [{z:"z-cab",w:15,l:"Cab"},{z:"z-seating",w:22,l:"Seating"},{z:"z-kitchen",w:14,l:"Kitchen"},{z:"z-bath",w:14,l:"Bath"},{z:"z-bed",w:25,l:"Bed"},{z:"z-garage",w:10,l:"Garage"}] },
+    ]
+  },
+  {
+    brand: "Westfalia", country: "Germany", parent: "Rapido Group", founded: 1951,
+    platforms: ["ducato","sprinter","crafter","transit"], has4x4: true, hasPoptop: true,
+    tagline: "The historic designer of top-of-the-range camper vans since 1951.",
+    models: [
+      { name: "Columbus 540D", series: "Columbus", length: 540, seats: 4, berths: 2, chassis: "Fiat Ducato", poptop: true, fourx4: false, bedType: "bed-rear-transverse", layout: [{z:"z-cab",w:16,l:"Cab"},{z:"z-seating",w:22,l:"Seating"},{z:"z-kitchen",w:15,l:"Kitchen"},{z:"z-bath",w:14,l:"Bath"},{z:"z-bed",w:23,l:"Bed"},{z:"z-garage",w:10,l:"Garage"}] },
+      { name: "Columbus 600E", series: "Columbus", length: 599, seats: 4, berths: 2, chassis: "Fiat Ducato", poptop: true, fourx4: false, bedType: "bed-rear-longitudinal", layout: [{z:"z-cab",w:15,l:"Cab"},{z:"z-seating",w:20,l:"Seating"},{z:"z-kitchen",w:14,l:"Kitchen"},{z:"z-bath",w:14,l:"Bath"},{z:"z-bed",w:27,l:"Twin Beds"},{z:"z-garage",w:10,l:"Garage"}] },
+      { name: "James Cook 600D", series: "James Cook", length: 593, seats: 4, berths: 2, chassis: "Mercedes Sprinter", poptop: false, fourx4: true, bedType: "bed-rear-transverse", layout: [{z:"z-cab",w:15,l:"Cab"},{z:"z-seating",w:20,l:"Seating"},{z:"z-kitchen",w:14,l:"Kitchen"},{z:"z-bath",w:16,l:"Bath"},{z:"z-bed",w:25,l:"Bed"},{z:"z-garage",w:10,l:"Garage"}] },
+      { name: "Sven Hedin", series: "Sven Hedin", length: 599, seats: 4, berths: 2, chassis: "MAN TGE", poptop: true, fourx4: true, bedType: "bed-rear-transverse", layout: [{z:"z-cab",w:15,l:"Cab"},{z:"z-seating",w:22,l:"Seating"},{z:"z-kitchen",w:14,l:"Kitchen"},{z:"z-bath",w:14,l:"Bath"},{z:"z-bed",w:25,l:"Pop-out Bed"},{z:"z-garage",w:10,l:"Garage"}] },
+      { name: "Kipling", series: "Kipling", length: 545, seats: 4, berths: 4, chassis: "Ford Transit Custom", poptop: true, fourx4: false, bedType: "bed-rear-transverse", layout: [{z:"z-cab",w:16,l:"Cab"},{z:"z-seating",w:22,l:"Seating"},{z:"z-kitchen",w:18,l:"Kitchen"},{z:"z-bed",w:30,l:"Bed"},{z:"z-garage",w:14,l:"Garage"}] },
+    ]
+  },
+  {
+    brand: "Knaus", country: "Germany", parent: "Knaus Tabbert AG", founded: 1960,
+    platforms: ["ducato","crafter"], has4x4: true, hasPoptop: true,
+    tagline: "Freedom that inspires. Boxlife & Boxdrive series.",
+    models: [
+      { name: "Boxlife 600 DQ", series: "Boxlife", length: 599, seats: 4, berths: 4, chassis: "Fiat Ducato", poptop: false, fourx4: false, bedType: "bed-dropdown", layout: [{z:"z-cab",w:15,l:"Cab"},{z:"z-bed",w:15,l:"Drop Bed"},{z:"z-seating",w:17,l:"Seating"},{z:"z-kitchen",w:15,l:"Kitchen"},{z:"z-bath",w:13,l:"Bath"},{z:"z-bed",w:25,l:"Rear Bed"}] },
+      { name: "Boxlife Pro 600 Street", series: "Boxlife Pro", length: 600, seats: 4, berths: 3, chassis: "Fiat Ducato", poptop: true, fourx4: false, bedType: "bed-rear-transverse", layout: [{z:"z-cab",w:15,l:"Cab"},{z:"z-seating",w:22,l:"Seating"},{z:"z-kitchen",w:15,l:"Kitchen"},{z:"z-bath",w:13,l:"Bath"},{z:"z-bed",w:25,l:"Bed"},{z:"z-garage",w:10,l:"Garage"}] },
+      { name: "Boxdrive 600 XL", series: "Boxdrive", length: 598, seats: 4, berths: 4, chassis: "MAN TGE 4x4", poptop: false, fourx4: true, bedType: "bed-dropdown", layout: [{z:"z-cab",w:14,l:"Cab"},{z:"z-bed",w:16,l:"Over-cab"},{z:"z-seating",w:18,l:"Seating"},{z:"z-kitchen",w:14,l:"Kitchen"},{z:"z-bath",w:13,l:"Bath"},{z:"z-bed",w:25,l:"Rear Bed"}] },
+    ]
+  },
+  {
+    brand: "Malibu", country: "Germany", parent: "Carthago Group", founded: 1980,
+    platforms: ["ducato","sprinter"], has4x4: true, hasPoptop: true,
+    tagline: "The number-one premium camper van. Production partly in Slovenia (Ormož).",
+    models: [
+      { name: "Compact 600 LE", series: "Van Compact", length: 599, seats: 4, berths: 2, chassis: "Fiat Ducato", poptop: true, fourx4: false, bedType: "bed-rear-longitudinal", layout: [{z:"z-cab",w:15,l:"Cab"},{z:"z-seating",w:20,l:"Seating"},{z:"z-kitchen",w:15,l:"Kitchen"},{z:"z-bath",w:14,l:"Bath"},{z:"z-bed",w:26,l:"Twin Beds"},{z:"z-garage",w:10,l:"Garage"}] },
+      { name: "First Class 640 LE RB", series: "First Class", length: 636, seats: 4, berths: 3, chassis: "Fiat Ducato", poptop: true, fourx4: false, bedType: "bed-rear-longitudinal", layout: [{z:"z-cab",w:14,l:"Cab"},{z:"z-seating",w:18,l:"Seating"},{z:"z-kitchen",w:14,l:"Kitchen"},{z:"z-bath",w:15,l:"2-Room Bath"},{z:"z-bed",w:28,l:"Private Bed"},{z:"z-garage",w:11,l:"Garage"}] },
+      { name: "Genius 641 LE", series: "Genius", length: 641, seats: 4, berths: 2, chassis: "Mercedes Sprinter", poptop: false, fourx4: false, bedType: "bed-rear-longitudinal", layout: [{z:"z-cab",w:14,l:"Cab"},{z:"z-seating",w:18,l:"Seating"},{z:"z-kitchen",w:13,l:"Kitchen"},{z:"z-bath",w:15,l:"SuperMax Bath"},{z:"z-bed",w:24,l:"Fold Beds"},{z:"z-garage",w:16,l:"1400L Garage"}] },
+      { name: "Genius Performance 4x4", series: "Genius", length: 641, seats: 4, berths: 2, chassis: "Mercedes Sprinter 4x4", poptop: false, fourx4: true, bedType: "bed-rear-longitudinal", layout: [{z:"z-cab",w:14,l:"Cab"},{z:"z-seating",w:18,l:"Seating"},{z:"z-kitchen",w:13,l:"Kitchen"},{z:"z-bath",w:15,l:"SuperMax Bath"},{z:"z-bed",w:24,l:"Fold Beds"},{z:"z-garage",w:16,l:"1400L Garage"}] },
+    ]
+  },
+  {
+    brand: "North Cape", country: "Spain", parent: "Independent (startup)", founded: 2022,
+    platforms: ["crafter"], has4x4: true, hasPoptop: true,
+    tagline: "The adventure is now. Exclusively MAN TGE 4x4. €130K–€135K.",
+    models: [
+      { name: "Adventure 6XT", series: "Adventure", length: 599, seats: 4, berths: 2, chassis: "MAN TGE 4x4", poptop: false, fourx4: true, bedType: "bed-rear-transverse", layout: [{z:"z-cab",w:15,l:"Cab"},{z:"z-seating",w:22,l:"Seating"},{z:"z-kitchen",w:15,l:"Kitchen"},{z:"z-bath",w:13,l:"Bath"},{z:"z-bed",w:25,l:"Bed"},{z:"z-garage",w:10,l:"Garage"}] },
+      { name: "Adventure 6XR", series: "Adventure", length: 599, seats: 4, berths: 4, chassis: "MAN TGE 4x4", poptop: true, fourx4: true, bedType: "bed-rear-transverse", layout: [{z:"z-cab",w:15,l:"Cab"},{z:"z-seating",w:22,l:"Seating"},{z:"z-kitchen",w:15,l:"Kitchen"},{z:"z-bath",w:13,l:"Bath"},{z:"z-bed",w:25,l:"Bed+Pop"},{z:"z-garage",w:10,l:"Garage"}] },
+    ]
+  },
+  {
+    brand: "La Strada", country: "Germany", parent: "Independent (~300 units/yr)", founded: 1986,
+    platforms: ["ducato","sprinter"], has4x4: true, hasPoptop: false,
+    tagline: "Premium compact motorhome manufactory. Handbuilt. GRP monocoque Nova flagship.",
+    models: [
+      { name: "Avanti EB", series: "Avanti", length: 636, seats: 4, berths: 2, chassis: "Fiat Ducato", poptop: false, fourx4: false, bedType: "bed-rear-longitudinal", layout: [{z:"z-cab",w:14,l:"Cab"},{z:"z-seating",w:18,l:"Seating"},{z:"z-kitchen",w:15,l:"Kitchen"},{z:"z-bath",w:15,l:"Bath"},{z:"z-bed",w:28,l:"Twin Beds"},{z:"z-garage",w:10,l:"Garage"}] },
+      { name: "Regent S", series: "Regent", length: 593, seats: 4, berths: 2, chassis: "Mercedes Sprinter 4x4", poptop: false, fourx4: true, bedType: "bed-rear-transverse", layout: [{z:"z-cab",w:15,l:"Cab"},{z:"z-seating",w:22,l:"Seating"},{z:"z-kitchen",w:14,l:"Kitchen"},{z:"z-bath",w:14,l:"Bath"},{z:"z-bed",w:25,l:"Bed"},{z:"z-garage",w:10,l:"Garage"}] },
+      { name: "Nova M", series: "Nova", length: 646, seats: 4, berths: 3, chassis: "Sprinter AWD GRP Mono", poptop: false, fourx4: true, bedType: "bed-dropdown", layout: [{z:"z-cab",w:14,l:"Cab"},{z:"z-bed",w:14,l:"Lift Bed"},{z:"z-seating",w:16,l:"Seating"},{z:"z-kitchen",w:14,l:"Kitchen"},{z:"z-bath",w:14,l:"Bath"},{z:"z-bed",w:18,l:"Rear Bed"},{z:"z-garage",w:10,l:"Garage"}] },
+    ]
+  },
+];
+
+// ═════════════════════════════════════════════════
+// FILTER + RENDER ENGINE
+// ═════════════════════════════════════════════════
+
+let activeF = new Set();
+function toggleF(btn) {
+  const f = btn.dataset.f;
+  if (activeF.has(f)) { activeF.delete(f); btn.classList.remove('active'); }
+  else { activeF.add(f); btn.classList.add('active'); }
+  filterAll();
+}
+
+function filterAll() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  const filtered = data.filter(b => {
+    if (q && !b.brand.toLowerCase().includes(q) && !b.models.some(m => m.name.toLowerCase().includes(q))) return false;
+    for (const f of activeF) {
+      if (f === 'ducato' || f === 'sprinter' || f === 'crafter' || f === 'transit' || f === 'peugeot') {
+        if (!b.platforms.includes(f)) return false;
+      }
+      if (f === '4x4' && !b.has4x4) return false;
+      if (f === 'poptop' && !b.hasPoptop) return false;
+      if (f.startsWith('bed-')) {
+        if (!b.models.some(m => m.bedType === f)) return false;
+      }
+    }
+    return true;
+  });
+  render(filtered);
+  document.getElementById('resultsCount').textContent = filtered.length + ' of ' + data.length + ' brands';
+}
+
+function render(brands) {
+  const c = document.getElementById('content');
+  c.innerHTML = brands.map(b => {
+    const tags = [];
+    if (b.platforms.includes('ducato')) tags.push('<span class="brand-tag t-ducato">Ducato</span>');
+    if (b.platforms.includes('sprinter')) tags.push('<span class="brand-tag t-sprinter">Sprinter</span>');
+    if (b.platforms.includes('crafter')) tags.push('<span class="brand-tag t-crafter">VW/MAN</span>');
+    if (b.platforms.includes('transit')) tags.push('<span class="brand-tag t-transit">Ford</span>');
+    if (b.platforms.includes('peugeot')) tags.push('<span class="brand-tag t-peugeot">Peugeot</span>');
+    if (b.has4x4) tags.push('<span class="brand-tag t-4x4">4x4</span>');
+    if (b.hasPoptop) tags.push('<span class="brand-tag t-poptop">Pop-top</span>');
+    if (b.highlight) tags.push('<span class="brand-tag t-highlight">Our Brand</span>');
+
+    const modelsHtml = b.models.map(m => {
+      const badges = [];
+      if (m.fourx4) badges.push('<div class="model-badge badge-4x4">4x4 AWD</div>');
+      if (m.poptop) badges.push('<div class="model-badge badge-poptop">Pop-top</div>');
+
+      const layoutHtml = m.layout ? m.layout.map(z =>
+        `<div class="layout-zone ${z.z}" style="flex:0 0 ${z.w}%">${z.l}</div>`
+      ).join('') : '';
+
+      return `
+        <div class="model-card">
+          <div class="model-image-wrap" style="background:linear-gradient(135deg, rgba(55,180,180,0.1), rgba(30,40,60,0.4))">
+            ${badges.join('')}
+            <div style="display:flex;align-items:center;justify-content:center;height:100%;font-family:var(--font-heading);font-size:48px;color:rgba(255,255,255,0.06)">${m.length}</div>
+          </div>
+          <div class="model-info">
+            <div class="model-name">${m.name}</div>
+            <div class="model-series">${m.series}</div>
+            <div class="model-chassis">${m.chassis}</div>
+            <div class="layout-diagram">
+              <div class="layout-label">Layout — Front to Rear</div>
+              <div class="layout-bar">${layoutHtml}</div>
+            </div>
+            <div class="model-specs">
+              <div class="spec-item"><div class="spec-val">${(m.length/100).toFixed(1)}m</div><div class="spec-lbl">Length</div></div>
+              <div class="spec-item"><div class="spec-val">${m.seats}</div><div class="spec-lbl">Seats</div></div>
+              <div class="spec-item"><div class="spec-val">${m.berths}</div><div class="spec-lbl">Berths</div></div>
+              <div class="spec-item"><div class="spec-val" style="font-size:14px">${m.bedType.replace('bed-','').replace('-',' ')}</div><div class="spec-lbl">Bed Type</div></div>
+            </div>
+          </div>
+        </div>`;
+    }).join('');
+
+    return `
+      <div class="brand-section" data-brand="${b.brand}" style="${b.highlight ? 'border-color:var(--teal);' : ''}">
+        <div class="brand-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="brand-header-left">
+            <div class="brand-logo-circle">${b.brand.charAt(0)}</div>
+            <div>
+              <div class="brand-title">${b.brand}</div>
+              <div class="brand-subtitle">${b.country} · est. ${b.founded} · ${b.parent}</div>
+            </div>
+          </div>
+          <div class="brand-tags">${tags.join('')}</div>
+          <div class="toggle-icon">▼</div>
+        </div>
+        <div class="models-grid">${modelsHtml}</div>
+      </div>`;
+  }).join('');
+}
+
+filterAll();
+// Auto-open Tourne Mobil
+document.querySelector('[data-brand="Tourne Mobil"]')?.classList.add('open');
+</script>
+</body>
+</html>

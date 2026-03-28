@@ -18,279 +18,310 @@
     html { scroll-behavior: smooth; }
     body { font-family: var(--font-body); background: var(--off-white); color: var(--dark); font-size: 15px; line-height: 1.6; }
 
-    .hero { background: var(--dark); padding: 56px 48px 48px; position: relative; overflow: hidden; }
+    /* ══ HERO ══ */
+    .hero { background: var(--dark); padding: 48px 48px 40px; position: relative; overflow: hidden; }
     .hero::after { content:''; position:absolute; inset:0; background: repeating-linear-gradient(0deg,transparent,transparent 40px,rgba(55,180,180,0.06) 40px,rgba(55,180,180,0.06) 41px), repeating-linear-gradient(90deg,transparent,transparent 40px,rgba(55,180,180,0.04) 40px,rgba(55,180,180,0.04) 41px); pointer-events:none; }
     .hero-inner { position:relative; z-index:1; display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:24px; max-width:1440px; margin:0 auto; }
-    .hero-brand { font-family:var(--font-heading); font-weight:700; font-size:13px; letter-spacing:0.18em; text-transform:uppercase; color:var(--teal); margin-bottom:10px; }
+    .hero-brand { font-family:var(--font-heading); font-weight:700; font-size:13px; letter-spacing:0.18em; text-transform:uppercase; color:var(--teal); margin-bottom:8px; }
     .hero-title { font-family:var(--font-heading); font-weight:700; font-size:36px; color:#fff; letter-spacing:-0.02em; line-height:1.15; }
-    .hero-sub { color:var(--mid-grey); font-size:14px; margin-top:10px; max-width:520px; }
-    .hero-nav { display:flex; gap:10px; margin-top:14px; }
-    .hero-nav a { font-family:var(--font-body); font-size:12px; padding:7px 16px; border:1px solid rgba(255,255,255,0.2); color:var(--mid-grey); text-decoration:none; transition:all 0.15s; }
-    .hero-nav a:hover, .hero-nav a.current { border-color:var(--teal); color:var(--teal); }
-    .stat-block { display:flex; gap:32px; text-align:right; }
+    .hero-sub { color:var(--mid-grey); font-size:14px; margin-top:8px; max-width:500px; }
+    .hero-nav { display:flex; gap:10px; margin-top:12px; }
+    .hero-nav a { font-size:12px; padding:6px 14px; border:1px solid rgba(255,255,255,0.2); color:var(--mid-grey); text-decoration:none; }
+    .hero-nav a:hover, .hero-nav a.on { border-color:var(--teal); color:var(--teal); }
+    .stat-block { display:flex; gap:28px; text-align:right; }
     .stat-item .num { font-family:var(--font-heading); font-size:40px; font-weight:700; color:var(--teal); line-height:1; }
-    .stat-item .lbl { font-size:11px; color:var(--mid-grey); text-transform:uppercase; letter-spacing:0.12em; margin-top:4px; }
+    .stat-item .lbl { font-size:10px; color:var(--mid-grey); text-transform:uppercase; letter-spacing:0.12em; margin-top:4px; }
 
-    .toolbar { background:#fff; border-bottom:1px solid var(--light-grey); padding:12px 32px; display:flex; gap:8px; align-items:center; flex-wrap:wrap; position:sticky; top:0; z-index:100; }
-    .toolbar-label { font-size:10px; color:var(--mid-grey); text-transform:uppercase; letter-spacing:0.1em; font-weight:600; }
-    .toolbar-divider { width:1px; height:24px; background:var(--light-grey); margin:0 6px; }
-    .btn { font-family:var(--font-body); font-size:11px; padding:5px 12px; border:1px solid var(--light-grey); background:var(--off-white); color:var(--dark); cursor:pointer; transition:all 0.15s; }
+    /* ══ TOOLBAR ══ */
+    .toolbar { background:#fff; border-bottom:1px solid var(--light-grey); padding:10px 32px; display:flex; gap:8px; align-items:center; flex-wrap:wrap; position:sticky; top:0; z-index:90; }
+    .tl { font-size:10px; color:var(--mid-grey); text-transform:uppercase; letter-spacing:0.1em; font-weight:600; }
+    .td { width:1px; height:22px; background:var(--light-grey); margin:0 5px; }
+    .btn { font-family:var(--font-body); font-size:11px; padding:5px 11px; border:1px solid var(--light-grey); background:var(--off-white); color:var(--dark); cursor:pointer; }
     .btn:hover { border-color:var(--teal); color:var(--teal); }
-    .btn.active { background:var(--teal); color:#fff; border-color:var(--teal); }
-    .search-input { font-family:var(--font-body); font-size:13px; padding:6px 12px; border:1px solid var(--light-grey); background:#fff; color:var(--dark); width:180px; outline:none; }
-    .search-input:focus { border-color:var(--teal); }
-    .search-input::placeholder { color:var(--mid-grey); }
-    .results-count { font-family:var(--font-data); font-size:12px; color:var(--mid-grey); margin-left:auto; }
+    .btn.on { background:var(--teal); color:#fff; border-color:var(--teal); }
+    .si { font-family:var(--font-body); font-size:13px; padding:5px 12px; border:1px solid var(--light-grey); background:#fff; width:180px; outline:none; }
+    .si:focus { border-color:var(--teal); }
+    .rc { font-family:var(--font-data); font-size:12px; color:var(--mid-grey); margin-left:auto; }
+    .btn-expand { margin-left:8px; font-size:10px; padding:4px 10px; }
 
-    .legend { max-width:1440px; margin:12px auto 0; padding:0 32px; display:flex; gap:16px; flex-wrap:wrap; }
-    .legend-item { display:flex; align-items:center; gap:5px; font-size:10px; color:var(--warm-grey); }
-    .legend-sw { width:12px; height:12px; }
-    .lc-bed { background:#4A90D9; } .lc-kitchen { background:#E67E22; } .lc-bath { background:#27AE60; } .lc-seat { background:#9B59B6; } .lc-gar { background:#95A5A6; }
+    /* ══ LEGEND ══ */
+    .legend { max-width:1440px; margin:10px auto 0; padding:0 32px; display:flex; gap:14px; flex-wrap:wrap; }
+    .li { display:flex; align-items:center; gap:4px; font-size:10px; color:var(--warm-grey); }
+    .ls { width:11px; height:11px; }
+    .c1{background:#9B59B6} .c2{background:#E67E22} .c3{background:#27AE60} .c4{background:#4A90D9} .c5{background:#95A5A6}
 
-    .content { max-width:1440px; margin:0 auto; padding:24px 32px; }
+    /* ══ CONTENT ══ */
+    .ct { max-width:1440px; margin:0 auto; padding:20px 32px; }
 
-    .brand-section { margin-bottom:16px; background:#fff; border:1px solid var(--light-grey); }
-    .brand-section.hl { border:2px solid var(--teal); background:var(--teal-light); }
-    .brand-hdr { padding:16px 24px; display:flex; align-items:center; justify-content:space-between; cursor:pointer; transition:background 0.15s; }
-    .brand-hdr:hover { background:var(--teal-light); }
-    .bh-left { display:flex; align-items:center; gap:14px; }
-    .bh-init { width:36px; height:36px; background:var(--teal); display:flex; align-items:center; justify-content:center; font-family:var(--font-heading); font-weight:700; font-size:15px; color:#fff; }
-    .bh-name { font-family:var(--font-heading); font-weight:700; font-size:18px; }
-    .bh-meta { font-size:11px; color:var(--mid-grey); }
-    .bh-tags { display:flex; gap:4px; flex-wrap:wrap; }
-    .tg { font-family:var(--font-data); font-size:9px; padding:2px 8px; text-transform:uppercase; letter-spacing:0.05em; border:1px solid var(--light-grey); color:var(--warm-grey); }
-    .tg-d { border-color:#E8D5B7; color:#8B6914; background:#FEF9F0; }
-    .tg-s { border-color:#C5D5E8; color:#2C5F8A; background:#F0F5FA; }
-    .tg-c { border-color:#D5D5E8; color:#4A4A8A; background:#F3F3FA; }
-    .tg-t { border-color:#D5E8D5; color:#2A6B2A; background:#F0FAF0; }
-    .tg-p { border-color:#E8D5E8; color:#6B2A6B; background:#FAF0FA; }
-    .tg-4 { border-color:#F5D5C5; color:#C0392B; background:#FDF3F0; }
-    .tg-pt { border-color:#C5E8D5; color:#1E8449; background:#F0FAF3; }
-    .tog { font-size:16px; color:var(--mid-grey); transition:transform 0.3s; }
-    .brand-section.open .tog { transform:rotate(180deg); }
+    /* ══ BRAND SECTION ══ */
+    .bs { margin-bottom:12px; background:#fff; border:1px solid var(--light-grey); }
+    .bs.hl { border:2px solid var(--teal); background:var(--teal-light); }
+    .bh { padding:14px 20px; display:flex; align-items:center; justify-content:space-between; cursor:pointer; }
+    .bh:hover { background:var(--teal-light); }
+    .bl { display:flex; align-items:center; gap:12px; }
+    .bi { width:32px; height:32px; background:var(--teal); display:flex; align-items:center; justify-content:center; font-family:var(--font-heading); font-weight:700; font-size:14px; color:#fff; flex-shrink:0; }
+    .bn { font-family:var(--font-heading); font-weight:700; font-size:17px; }
+    .bm { font-size:11px; color:var(--mid-grey); }
+    .bt { display:flex; gap:4px; flex-wrap:wrap; }
+    .tg { font-family:var(--font-data); font-size:9px; padding:2px 7px; text-transform:uppercase; letter-spacing:0.04em; border:1px solid var(--light-grey); color:var(--warm-grey); }
+    .tg-d{border-color:#E8D5B7;color:#8B6914;background:#FEF9F0} .tg-s{border-color:#C5D5E8;color:#2C5F8A;background:#F0F5FA}
+    .tg-c{border-color:#D5D5E8;color:#4A4A8A;background:#F3F3FA} .tg-t{border-color:#D5E8D5;color:#2A6B2A;background:#F0FAF0}
+    .tg-p{border-color:#E8D5E8;color:#6B2A6B;background:#FAF0FA} .tg-4{border-color:#F5D5C5;color:#C0392B;background:#FDF3F0}
+    .tg-pt{border-color:#C5E8D5;color:#1E8449;background:#F0FAF3}
+    .ti { font-size:14px; color:var(--mid-grey); transition:transform 0.3s; }
+    .bs.op .ti { transform:rotate(180deg); }
 
-    .m-grid { display:none; padding:16px; gap:12px; }
-    .brand-section.open .m-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(340px, 1fr)); }
+    /* ══ MODELS GRID ══ */
+    .mg { display:none; padding:14px; gap:14px; }
+    .bs.op .mg { display:grid; grid-template-columns:repeat(auto-fill, minmax(360px, 1fr)); }
 
-    .mc { background:var(--off-white); border:1px solid var(--light-grey); overflow:hidden; transition:all 0.2s; }
-    .mc:hover { border-color:var(--teal); box-shadow:0 3px 16px rgba(55,180,180,0.08); }
-    .mc-imgs { display:flex; height:160px; }
-    .mc-ext { flex:1; overflow:hidden; position:relative; background:#e8e8e8; display:flex; align-items:center; justify-content:center; }
-    .mc-ext img { width:100%; height:100%; object-fit:cover; }
-    .mc-fp { width:140px; overflow:hidden; background:#fff; border-left:1px solid var(--light-grey); display:flex; align-items:center; justify-content:center; padding:6px; }
-    .mc-fp img { max-width:100%; max-height:100%; object-fit:contain; }
-    .mc-badge { position:absolute; top:6px; left:6px; font-family:var(--font-data); font-size:9px; padding:2px 8px; text-transform:uppercase; letter-spacing:0.05em; color:#fff; }
-    .bg-4 { background:#C0392B; } .bg-pt { background:#27AE60; }
-    .no-img { font-family:var(--font-data); font-size:10px; color:var(--mid-grey); text-transform:uppercase; text-align:center; line-height:1.4; }
+    /* ══ MODEL CARD ══ */
+    .mc { background:var(--off-white); border:1px solid var(--light-grey); overflow:hidden; }
+    .mc:hover { border-color:var(--teal); box-shadow:0 2px 12px rgba(55,180,180,0.08); }
 
-    .mc-info { padding:14px 16px; }
-    .mc-name { font-family:var(--font-heading); font-weight:700; font-size:15px; }
-    .mc-series { font-family:var(--font-data); font-size:10px; color:var(--teal); text-transform:uppercase; letter-spacing:0.08em; }
-    .mc-chassis { font-size:11px; color:var(--warm-grey); margin:6px 0; padding-bottom:6px; border-bottom:1px solid var(--light-grey); }
+    /* 3 images row */
+    .mi { display:grid; grid-template-columns:1fr 1fr 1fr; height:140px; gap:1px; background:var(--light-grey); }
+    .mi-cell { overflow:hidden; position:relative; background:#e8e8e8; cursor:pointer; }
+    .mi-cell img { width:100%; height:100%; object-fit:cover; transition:transform 0.3s; }
+    .mi-cell:hover img { transform:scale(1.08); }
+    .mi-label { position:absolute; bottom:0; left:0; right:0; padding:2px 6px; background:rgba(0,0,0,0.55); font-family:var(--font-data); font-size:8px; color:#fff; text-transform:uppercase; letter-spacing:0.06em; text-align:center; }
+    .mi-empty { display:flex; align-items:center; justify-content:center; font-family:var(--font-data); font-size:9px; color:var(--mid-grey); text-transform:uppercase; text-align:center; line-height:1.3; padding:8px; }
+    .mi-badge { position:absolute; top:4px; left:4px; font-family:var(--font-data); font-size:8px; padding:2px 6px; text-transform:uppercase; color:#fff; z-index:2; }
+    .bg4{background:#C0392B} .bgp{background:#27AE60}
 
-    .lb-wrap { margin-bottom:10px; }
-    .lb-label { font-family:var(--font-data); font-size:8px; color:var(--mid-grey); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:3px; }
-    .lb { display:flex; height:26px; border:1px solid var(--light-grey); overflow:hidden; }
-    .lz { height:100%; display:flex; align-items:center; justify-content:center; font-family:var(--font-data); font-size:7px; color:rgba(0,0,0,0.45); text-transform:uppercase; letter-spacing:0.03em; border-right:1px solid rgba(0,0,0,0.05); }
-    .lz:last-child { border-right:none; }
-    .lz-c { background:#E8EAF0; } .lz-s { background:rgba(155,89,182,0.12); } .lz-k { background:rgba(230,126,34,0.12); }
-    .lz-b { background:rgba(39,174,96,0.12); } .lz-d { background:rgba(74,144,217,0.15); } .lz-g { background:rgba(149,165,166,0.12); }
+    .mf { padding:12px 14px; }
+    .mn { font-family:var(--font-heading); font-weight:700; font-size:14px; }
+    .ms { font-family:var(--font-data); font-size:10px; color:var(--teal); text-transform:uppercase; letter-spacing:0.06em; }
+    .mch { font-size:11px; color:var(--warm-grey); margin:4px 0; padding-bottom:4px; border-bottom:1px solid var(--light-grey); }
 
-    .mc-specs { display:grid; grid-template-columns:repeat(4,1fr); gap:4px; }
-    .sv { font-family:var(--font-data); font-size:16px; font-weight:700; color:var(--dark); line-height:1.2; text-align:center; }
-    .sl { font-size:8px; color:var(--mid-grey); text-transform:uppercase; letter-spacing:0.06em; text-align:center; }
+    /* Layout bar */
+    .lw { margin-bottom:8px; }
+    .ll { font-family:var(--font-data); font-size:7px; color:var(--mid-grey); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:2px; }
+    .lb { display:flex; height:22px; border:1px solid var(--light-grey); overflow:hidden; }
+    .lz { height:100%; display:flex; align-items:center; justify-content:center; font-family:var(--font-data); font-size:7px; color:rgba(0,0,0,0.4); text-transform:uppercase; border-right:1px solid rgba(0,0,0,0.04); }
+    .lz:last-child{border-right:none}
+    .z0{background:#E8EAF0} .z1{background:rgba(155,89,182,0.12)} .z2{background:rgba(230,126,34,0.12)}
+    .z3{background:rgba(39,174,96,0.12)} .z4{background:rgba(74,144,217,0.15)} .z5{background:rgba(149,165,166,0.12)}
 
-    .footer { background:var(--dark); padding:28px 48px; margin-top:40px; }
-    .footer::after { content:''; position:absolute; inset:0; background:repeating-linear-gradient(0deg,transparent,transparent 40px,rgba(55,180,180,0.04) 40px,rgba(55,180,180,0.04) 41px); pointer-events:none; }
-    .footer-inner { position:relative; z-index:1; display:flex; justify-content:space-between; align-items:center; max-width:1440px; margin:0 auto; }
-    .footer-brand { font-family:var(--font-heading); font-weight:700; font-size:12px; letter-spacing:0.15em; text-transform:uppercase; color:var(--teal); }
-    .footer-note { font-size:11px; color:var(--mid-grey); }
+    .mx { display:grid; grid-template-columns:repeat(4,1fr); gap:4px; }
+    .xv { font-family:var(--font-data); font-size:15px; font-weight:700; color:var(--dark); line-height:1.2; text-align:center; }
+    .xl { font-size:8px; color:var(--mid-grey); text-transform:uppercase; letter-spacing:0.05em; text-align:center; }
 
-    @media (max-width:768px) {
-      .hero { padding:28px 16px; } .hero-title { font-size:24px; }
-      .content { padding:12px; }
-      .brand-section.open .m-grid { grid-template-columns:1fr; }
-      .mc-imgs { height:130px; } .mc-fp { width:110px; }
-    }
+    /* ══ LIGHTBOX ══ */
+    .lightbox { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.88); z-index:200; align-items:center; justify-content:center; cursor:zoom-out; }
+    .lightbox.show { display:flex; }
+    .lightbox img { max-width:92vw; max-height:90vh; object-fit:contain; }
+    .lb-close { position:absolute; top:20px; right:24px; font-size:28px; color:#fff; cursor:pointer; font-family:var(--font-heading); }
+    .lb-caption { position:absolute; bottom:20px; left:50%; transform:translateX(-50%); color:#fff; font-family:var(--font-data); font-size:13px; text-transform:uppercase; letter-spacing:0.08em; background:rgba(0,0,0,0.5); padding:6px 16px; }
+
+    /* ══ FOOTER ══ */
+    .ft { background:var(--dark); padding:24px 48px; margin-top:32px; position:relative; overflow:hidden; }
+    .ft::after { content:''; position:absolute; inset:0; background:repeating-linear-gradient(0deg,transparent,transparent 40px,rgba(55,180,180,0.04) 40px,rgba(55,180,180,0.04) 41px); pointer-events:none; }
+    .fi { position:relative; z-index:1; display:flex; justify-content:space-between; align-items:center; max-width:1440px; margin:0 auto; }
+    .fb { font-family:var(--font-heading); font-weight:700; font-size:12px; letter-spacing:0.15em; text-transform:uppercase; color:var(--teal); }
+    .fn { font-size:11px; color:var(--mid-grey); }
+
+    @media(max-width:768px) { .hero{padding:24px 16px} .hero-title{font-size:24px} .ct{padding:10px} .bs.op .mg{grid-template-columns:1fr} .mi{height:110px} }
   </style>
 </head>
 <body>
+
 <div class="hero"><div class="hero-inner">
   <div>
     <div class="hero-brand">Tourne Mobil &mdash; Visual Intelligence</div>
     <h1 class="hero-title">Campervan Layouts & Floor Plans</h1>
-    <p class="hero-sub">Every model visualized with exterior photos, floor plans, and front-to-rear layout diagrams. All 48 brands, 350+ models.</p>
-    <div class="hero-nav">
-      <a href="index.html">Data Dashboard</a>
-      <a href="visual-compare.html" class="current">Visual Compare</a>
-    </div>
+    <p class="hero-sub">Every model with exterior, interior, and floor plan images. Click any image to enlarge. All 47 brands, 339 models.</p>
+    <div class="hero-nav"><a href="index.html">Data Dashboard</a><a href="visual-compare.html" class="on">Visual Compare</a></div>
   </div>
   <div class="stat-block">
-    <div class="stat-item"><div class="num" id="sB">48</div><div class="lbl">Brands</div></div>
-    <div class="stat-item"><div class="num" id="sM">350+</div><div class="lbl">Models</div></div>
+    <div class="stat-item"><div class="num" id="sB">47</div><div class="lbl">Brands</div></div>
+    <div class="stat-item"><div class="num" id="sM">339</div><div class="lbl">Models</div></div>
   </div>
 </div></div>
 
 <div class="toolbar">
-  <input type="text" class="search-input" id="si" placeholder="Search brands / models..." oninput="go()">
-  <div class="toolbar-divider"></div>
-  <span class="toolbar-label">Platform</span>
+  <input class="si" id="si" placeholder="Search brands / models..." oninput="go()">
+  <div class="td"></div>
+  <span class="tl">Platform</span>
   <button class="btn" data-f="ducato" onclick="tf(this)">Ducato</button>
   <button class="btn" data-f="sprinter" onclick="tf(this)">Sprinter</button>
   <button class="btn" data-f="crafter" onclick="tf(this)">VW/MAN</button>
   <button class="btn" data-f="transit" onclick="tf(this)">Ford</button>
   <button class="btn" data-f="peugeot" onclick="tf(this)">Peugeot</button>
-  <div class="toolbar-divider"></div>
-  <span class="toolbar-label">Features</span>
+  <div class="td"></div>
+  <span class="tl">Features</span>
   <button class="btn" data-f="4x4" onclick="tf(this)">4x4</button>
   <button class="btn" data-f="poptop" onclick="tf(this)">Pop-top</button>
-  <span class="results-count" id="rc"></span>
+  <div class="td"></div>
+  <button class="btn btn-expand" onclick="expandAll()">Expand All</button>
+  <button class="btn btn-expand" onclick="collapseAll()">Collapse All</button>
+  <span class="rc" id="rc"></span>
 </div>
 
 <div class="legend">
-  <div class="legend-item"><div class="legend-sw lc-seat"></div>Cab/Seating</div>
-  <div class="legend-item"><div class="legend-sw lc-kitchen"></div>Kitchen</div>
-  <div class="legend-item"><div class="legend-sw lc-bath"></div>Bathroom</div>
-  <div class="legend-item"><div class="legend-sw lc-bed"></div>Bed</div>
-  <div class="legend-item"><div class="legend-sw lc-gar"></div>Garage</div>
+  <div class="li"><div class="ls c1"></div>Seating</div>
+  <div class="li"><div class="ls c2"></div>Kitchen</div>
+  <div class="li"><div class="ls c3"></div>Bathroom</div>
+  <div class="li"><div class="ls c4"></div>Bed</div>
+  <div class="li"><div class="ls c5"></div>Garage</div>
 </div>
 
-<div class="content" id="ct"></div>
+<div class="ct" id="ct"></div>
 
-<div class="footer" style="position:relative;overflow:hidden"><div class="footer-inner">
-  <div class="footer-brand">Tourne Mobil</div>
-  <div class="footer-note">Visual competitive intelligence &middot; March 2026</div>
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lb" onclick="closeLb()">
+  <div class="lb-close" onclick="closeLb()">&times;</div>
+  <img id="lbi" src="">
+  <div class="lb-caption" id="lbc"></div>
+</div>
+
+<div class="ft"><div class="fi">
+  <div class="fb">Tourne Mobil</div>
+  <div class="fn">Visual competitive intelligence &middot; 1,115 images archived locally &middot; March 2026</div>
 </div></div>
 
+<!-- SHARED BRAND DATA -->
+<script src="brands-data.js"></script>
+
 <script>
-// WagonCat CDN image map — exterior + floor plan URLs from scraped pages
-const IMG = {
-  "Adria Mobil|Twin 600 SPB": ["https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/6707c7607e4e496765533171_main-image%201000x750.avif","https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/6707bdebde91dd98139ba230_t_700_600-spb_D.png"],
-  "Adria Mobil|Twin 600 SPB Family": ["https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/6707c7607e4e496765533171_main-image%201000x750.avif",""],
-  "Adria Mobil|Twin 640 SGX": ["https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/6707c731e10f98f8b70e2278_TWIN_LS_DSC05337-(1)___media_library_original_1620_1080.avif",""],
-  "Adria Mobil|Twin Sports 600 SPB": ["https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/6707c73a5aaaf2c307cb6279_TWIN_LS_DSC04700-(1)___media_library_original_1620_1080.avif",""],
-  "Adria Mobil|Twin Supreme 640 SGX": ["https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/6707c7b48f28ae9e6f707412_1850_TWIN_600_SP_image_interior_BC8_9426.avif",""],
-  "Adria Mobil|Twin Max 680 SLB": ["https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/6707c7607e4e496765533171_main-image%201000x750.avif",""],
-  "Hymer|Grand Canyon S 600": ["https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/6665640f4e3b8a2495564da4_hymer-gcs-exterior-artikweiss-03.avif","https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/66656385ae20cb25d5005163_Mask%20group.avif"],
-  "Hymer|Grand Canyon S CrossOver": ["https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/6665640fe53c8980441a7b4e_download.avif",""],
-  "Hymer|Ayers Rock": ["https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/666563f8e53c8980441a6fb5_Mask%20group.avif",""],
-  "Bravia Mobil|Swan 636": ["https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/667f9eea1545aa63fa1f4482_main-img-01.avif","https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/667f9fe8d2f63a8d4be4711d_Mask%20group.avif"],
-  "Bravia Mobil|Swan 599": ["https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/667f9efbccc8c07f03f63b04_636-3.jpg.avif",""],
-  "Bravia Mobil|Swan 699": ["https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/667f9efd38644649f29e7764_636-9.jpg.avif",""],
-  "Mega Mobil|Classic 600": ["https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/66ffcda5d90538f6235176d0_main-image%20800x600.avif","https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/66ffa0ffaacf2e7208b8a835_mega_classic_tloris.avif"],
-  "Westfalia|Columbus 600E": ["https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/6681a83a4a070d63c6fab4d5_columbus.avif","https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/6681aa9eeaffd225d698f150_layout.avif"],
-  "Knaus|Boxlife 600 DQ": ["https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/671caed4cf0ab1ec93a7f8c7_kta-knaus-2024-2025-boxlife600-keyvisual.webp","https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/671cafe0ea1fea578b8e8677_csm_kta-knaus-2021-2022-boxlife600dq-grundriss-tag_530b6937c4.webp"],
-  "Knaus|Boxlife 540 MQ": ["https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/6665d2687600e2a5fc502d6e_ktg-knaus-2020-2021-boxlife540-exterieur-6968.avif",""],
+// ══════════════════════════════════════
+// IMAGE MAP — WagonCat CDN URLs
+// [exterior, interior, floorplan]
+// ══════════════════════════════════════
+const IMG={
+"Adria Mobil|Twin 600 SPB":["https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/6707c7607e4e496765533171_main-image%201000x750.avif","https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/6707c731e10f98f8b70e2278_TWIN_LS_DSC05337-(1)___media_library_original_1620_1080.avif","https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/6707bdebde91dd98139ba230_t_700_600-spb_D.png"],
+"Adria Mobil|Twin 640 SGX":["https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/6707b0210d2ef5aaa0022092_TWIN-SUPREME_LS_DSC04057-(1)___media_library_original_1620_1080.avif","https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/6707b1e5a0d561decaf95fc8_TWIN-SPORTS_LS_DSC06258-(1)___media_library_original_1620_1080.avif","https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/6707b03a2e531c0b455e3ef3_t_700_600-spb_D.png"],
+"Adria Mobil|Twin Sports 600 SPB":["https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/6707bd3c243c1416b967f744_TWIN-SUPREME_LS_DSC04356-(1)___media_library_original_1620_1080.avif","https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/6707bccf352372cc2bea1648_TWIN-SUPREME_LS_DSC04477-(1)___media_library_original_1620_1080.avif","https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/6707bacf43efcae5a6bfd1bd_t_700_640-sgx_D.png"],
+"Hymer|Ayers Rock":["https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/66656d3ebddb3493978d76ae_Mask%20group.avif","https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/66656d5e3923d8ead96f69e5_hymer-grand-canyon.avif","https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/66656dbbc52ee848447134ed_ayers-rock-mj23-bett.avif"],
+"Hymer|Grand Canyon S 600":["https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/666563f8e53c8980441a6fb5_Mask%20group.avif","https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/6665640f7d3e927308dc8894_hymer-x-jan-pallmer_schweiz-2022_281.avif","https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/66656385ae20cb25d5005163_Mask%20group.avif"],
+"Hymer|Grand Canyon S CrossOver":["https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/6665667cc1c9c34f28d51d9a_Mask%20group.avif","https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/6665665c91429eda6aed4488_hy21_gcs_co_gr_chinus_i_dsnv.avif","https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/666566c03b2610a359f49629_grand-canyon-s-bett-11.06.2019.avif"],
+"Westfalia|Columbus 600E":["https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/6681a83a4a070d63c6fab4d5_columbus.avif","https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/6681aa3ba058f83163e36fbe_columbus600e_2380_DxO.avif","https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/6681aa9eeaffd225d698f150_layout.avif"],
+"Westfalia|Sven Hedin":["https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/668176ac558e4d2bd07a10fc_Mask%20group.avif","https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/668176fefe6da200d529c3eb_sh_slider_2500.avif","https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/668176ebdaa3c94f0926e557_Mask%20group.avif"],
+"Knaus|Boxlife 600 DQ":["https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/671caed4cf0ab1ec93a7f8c7_kta-knaus-2024-2025-boxlife600-keyvisual.webp","https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/6666b9946048dd994a054179_csm_kta-knaus-2021-2022-boxlife600-interieur-3448_49eb965037.avif","https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/671cafe0ea1fea578b8e8677_csm_kta-knaus-2021-2022-boxlife-600dq-grundriss-tag_530b6937c4.webp"],
+"Knaus|Boxlife 540 MQ":["https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/671cad7468081783cbdd580c_kta-knaus-2024-2025-boxlife540-keyvisual.webp","https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/6665d24d21ce7d953fa00597_csm_kta-knaus-2021-2022-boxlife540-interieur-3276_7b3cb7b1ee.avif","https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/6665c9933a18cbb1cd0de274_csm_kta-knaus-2021-2022-boxlife-540mq-grundriss-tag_a82960d31e.avif"],
+"Knaus|Boxdrive 680 ME":["https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/671cacb681ae6642a902ed35_kta-knaus-2021-2022-boxdrive-keyvisual.webp","https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/6665cd8d5aa75897f04d87a0_kta-knaus-2022-2023-boxdrive-interieur-1650.avif","https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/6665cb3b3d7b9ff4a63d1b36_csm_kta-knaus-2021-2022-boxdrive-680me-grundriss-tag_17f7000072.avif"],
+"Bravia Mobil|Swan 636":["https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/667f9eea1545aa63fa1f4482_main-img-01.avif","https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/667f9f2bf33b9c14bd319653_Bravia_Swan_636_5.jpg.avif","https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/667f9fe8d2f63a8d4be4711d_Mask%20group.avif"],
+"Bravia Mobil|Swan 599":["https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/667f9efbccc8c07f03f63b04_636-3.jpg.avif","",""],
+"Bravia Mobil|Swan 699":["https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/667f9efd38644649f29e7764_636-9.jpg.avif","",""],
+"Mega Mobil|Classic 600":["https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/66ffcda5d90538f6235176d0_main-image%20800x600.avif","https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/66ffa081ad785af977046c73_alpe-4-2-3.avif","https://cdn.prod.website-files.com/664c6c6999c083cc5ccfdb1f/66ffa0ffaacf2e7208b8a835_mega_classic_tloris.avif"],
 };
 
-// Auto-generate layout bar from model properties
-function mkLayout(m) {
-  const c = m.chassis ? m.chassis.toLowerCase() : '';
-  const l = m.length || 600;
-  const short = l < 560;
-  const hasBath = l >= 540;
-  // Determine bed type from name/berths
-  const n = m.name.toLowerCase();
-  const isDrop = n.includes('hub') || n.includes('drop') || n.includes('sgx') || n.includes('dq') || n.includes('lounge') || n.includes('re-aktiv') || n.includes('revolution');
-  const isTwin = n.includes('eb') || n.includes('twin bed') || n.includes('slen') || n.includes('slb') || n.includes('le ') || n.includes('longitudinal');
-  const bedLabel = isDrop ? 'Drop Bed' : isTwin ? 'Twin Beds' : 'Bed';
-  const zones = [];
-  zones.push({c:'lz-c',w:short?18:14,l:'Cab'});
-  if (isDrop && !short) zones.push({c:'lz-d',w:12,l:'Drop Bed'});
-  zones.push({c:'lz-s',w:short?22:18,l:'Seating'});
-  zones.push({c:'lz-k',w:short?18:14,l:'Kitchen'});
-  if (hasBath) zones.push({c:'lz-b',w:13,l:'Bath'});
-  zones.push({c:'lz-d',w:short?24:isDrop?14:26,l:bedLabel});
-  if (!short) zones.push({c:'lz-g',w:10,l:'Garage'});
-  // Normalize widths to 100%
-  const total = zones.reduce((s,z)=>s+z.w,0);
-  zones.forEach(z => z.w = Math.round(z.w / total * 100));
-  return zones;
+// Models without WagonCat pages: use brand-level first image as fallback
+// Also propagate first-found image to siblings in same series
+function getImgs(brand, model) {
+  const key = brand + '|' + model.name;
+  if (IMG[key]) return IMG[key];
+  // Try series sibling
+  const seriesKey = Object.keys(IMG).find(k => k.startsWith(brand + '|') && IMG[k][0]);
+  if (seriesKey) return [IMG[seriesKey][0], '', ''];
+  return ['','',''];
 }
 
-// ═══════════════════════════════════════════
-// COMPLETE BRAND DATABASE (from data dashboard)
-// ═══════════════════════════════════════════
-</script>
-<script src="brands-data.js"></script>
-<script>
-// ═══ FILTER + RENDER ═══
-let af = new Set();
-function tf(btn) { const f=btn.dataset.f; if(af.has(f)){af.delete(f);btn.classList.remove('active')}else{af.add(f);btn.classList.add('active')} go(); }
+// ══ LIGHTBOX ══
+function openLb(src, caption) {
+  if (!src) return;
+  document.getElementById('lbi').src = src;
+  document.getElementById('lbc').textContent = caption || '';
+  document.getElementById('lb').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closeLb() {
+  document.getElementById('lb').classList.remove('show');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
 
-function go() {
-  const q = document.getElementById('si').value.toLowerCase();
-  const fl = brands.filter(b => {
-    if (q && !b.name.toLowerCase().includes(q) && !b.models?.some(m => m.name.toLowerCase().includes(q))) return false;
-    for (const f of af) {
-      if (['ducato','sprinter','crafter','transit','peugeot','opel'].includes(f) && !b.platforms.includes(f)) return false;
-      if (f === '4x4' && !b.has4x4) return false;
-      if (f === 'poptop' && !b.hasPoptop) return false;
+// ══ LAYOUT GENERATOR ══
+function mkLayout(m) {
+  const n = (m.name || '').toLowerCase();
+  const isDrop = n.includes('hub') || n.includes('sgx') || n.includes('dq') || n.includes('lounge') || n.includes('re-aktiv') || n.includes('revolution') || n.includes('nova m');
+  const isTwin = n.includes('slb') || n.includes(' eb') || n.includes('le ');
+  const short = (m.length||600) < 560;
+  const bl = isDrop ? 'Drop' : isTwin ? 'Twins' : 'Bed';
+  const z = [];
+  z.push({c:'z0',w:short?18:14,l:'Cab'});
+  if (isDrop && !short) z.push({c:'z4',w:12,l:'Drop'});
+  z.push({c:'z1',w:short?22:18,l:'Seat'});
+  z.push({c:'z2',w:short?18:14,l:'Kitchen'});
+  if ((m.length||600) >= 540) z.push({c:'z3',w:13,l:'Bath'});
+  z.push({c:'z4',w:short?24:isDrop?14:26,l:bl});
+  if (!short) z.push({c:'z5',w:10,l:'Gar'});
+  const t=z.reduce((s,x)=>s+x.w,0); z.forEach(x=>x.w=Math.round(x.w/t*100));
+  return z;
+}
+
+// ══ FILTER ══
+let af=new Set();
+function tf(b){const f=b.dataset.f;if(af.has(f)){af.delete(f);b.classList.remove('on')}else{af.add(f);b.classList.add('on')} go();}
+function expandAll(){document.querySelectorAll('.bs').forEach(s=>s.classList.add('op'));}
+function collapseAll(){document.querySelectorAll('.bs').forEach(s=>s.classList.remove('op'));}
+
+function go(){
+  const q=document.getElementById('si').value.toLowerCase();
+  const fl=brands.filter(b=>{
+    if(q&&!b.name.toLowerCase().includes(q)&&!(b.models||[]).some(m=>m.name.toLowerCase().includes(q)))return false;
+    for(const f of af){
+      if(['ducato','sprinter','crafter','transit','peugeot','opel'].includes(f)&&!b.platforms.includes(f))return false;
+      if(f==='4x4'&&!b.has4x4)return false;
+      if(f==='poptop'&&!b.hasPoptop)return false;
     }
     return true;
   });
-  document.getElementById('rc').textContent = fl.length + ' of ' + brands.length;
+  document.getElementById('rc').textContent=fl.length+' / '+brands.length+' brands';
   render(fl);
 }
 
-function render(list) {
-  document.getElementById('ct').innerHTML = list.map(b => {
-    const tags = [];
-    if(b.platforms.includes('ducato'))tags.push('<span class="tg tg-d">Ducato</span>');
-    if(b.platforms.includes('sprinter'))tags.push('<span class="tg tg-s">Sprinter</span>');
-    if(b.platforms.includes('crafter'))tags.push('<span class="tg tg-c">VW/MAN</span>');
-    if(b.platforms.includes('transit'))tags.push('<span class="tg tg-t">Ford</span>');
-    if(b.platforms.includes('peugeot'))tags.push('<span class="tg tg-p">Peugeot</span>');
-    if(b.has4x4)tags.push('<span class="tg tg-4">4x4</span>');
-    if(b.hasPoptop)tags.push('<span class="tg tg-pt">Pop-top</span>');
-    const hl = b.highlight ? ' hl' : '';
-    const models = (b.models||[]).map(m => {
-      const key = b.name + '|' + m.name;
-      const imgs = IMG[key] || ['',''];
-      const extImg = imgs[0] ? `<img src="${imgs[0]}" alt="${m.name}" loading="lazy">` : `<div class="no-img">${m.name}<br>${m.length||'?'} cm</div>`;
-      const fpImg = imgs[1] ? `<img src="${imgs[1]}" alt="Layout" loading="lazy">` : `<div class="no-img" style="font-size:8px">Layout diagram</div>`;
-      const badges = [];
-      if(m.fourx4) badges.push('<div class="mc-badge bg-4">4x4</div>');
-      if(m.poptop) badges.push('<div class="mc-badge bg-pt">Pop-top</div>');
-      const layout = mkLayout(m);
-      const bars = layout.map(z=>`<div class="lz ${z.c}" style="flex:0 0 ${z.w}%">${z.l}</div>`).join('');
+function render(list){
+  document.getElementById('ct').innerHTML=list.map(b=>{
+    const tg=[];
+    if(b.platforms.includes('ducato'))tg.push('<span class="tg tg-d">Ducato</span>');
+    if(b.platforms.includes('sprinter'))tg.push('<span class="tg tg-s">Sprinter</span>');
+    if(b.platforms.includes('crafter'))tg.push('<span class="tg tg-c">VW/MAN</span>');
+    if(b.platforms.includes('transit'))tg.push('<span class="tg tg-t">Ford</span>');
+    if(b.platforms.includes('peugeot'))tg.push('<span class="tg tg-p">Peugeot</span>');
+    if(b.has4x4)tg.push('<span class="tg tg-4">4x4</span>');
+    if(b.hasPoptop)tg.push('<span class="tg tg-pt">Pop-top</span>');
+    const mc=(b.models||[]).length;
+    const hl=b.highlight?' hl':'';
+    const models=(b.models||[]).map(m=>{
+      const im=getImgs(b.name,m);
+      const bd=[];
+      if(m.fourx4)bd.push('<div class="mi-badge bg4">4x4</div>');
+      if(m.poptop)bd.push('<div class="mi-badge bgp">Pop-top</div>');
+      const cap=b.name+' '+m.name;
+      const extCell=im[0]?`<div class="mi-cell" onclick="openLb('${im[0]}','${cap} — Exterior')">${bd.join('')}<img src="${im[0]}" alt="${m.name}" loading="lazy"><div class="mi-label">Exterior</div></div>`:`<div class="mi-cell mi-empty">${bd.join('')}Exterior</div>`;
+      const intCell=im[1]?`<div class="mi-cell" onclick="openLb('${im[1]}','${cap} — Interior')"><img src="${im[1]}" alt="${m.name} int" loading="lazy"><div class="mi-label">Interior</div></div>`:`<div class="mi-cell mi-empty">Interior</div>`;
+      const fpCell=im[2]?`<div class="mi-cell" onclick="openLb('${im[2]}','${cap} — Floor Plan')"><img src="${im[2]}" alt="${m.name} plan" loading="lazy"><div class="mi-label">Floor Plan</div></div>`:`<div class="mi-cell mi-empty">Floor Plan</div>`;
+      const lz=mkLayout(m).map(z=>`<div class="lz ${z.c}" style="flex:0 0 ${z.w}%">${z.l}</div>`).join('');
       return `<div class="mc">
-        <div class="mc-imgs">
-          <div class="mc-ext">${badges.join('')}${extImg}</div>
-          <div class="mc-fp">${fpImg}</div>
-        </div>
-        <div class="mc-info">
-          <div class="mc-name">${m.name}</div>
-          <div class="mc-series">${m.series||''}</div>
-          <div class="mc-chassis">${m.chassis||'N/A'}</div>
-          <div class="lb-wrap"><div class="lb-label">Layout front → rear</div><div class="lb">${bars}</div></div>
-          <div class="mc-specs">
-            <div><div class="sv">${m.length ? (m.length/100).toFixed(1)+'m' : '?'}</div><div class="sl">Length</div></div>
-            <div><div class="sv">${m.seats||'?'}</div><div class="sl">Seats</div></div>
-            <div><div class="sv">${m.berths||'?'}</div><div class="sl">Berths</div></div>
-            <div><div class="sv" style="font-size:11px">${m.poptop?'Pop':'Fixed'}${m.fourx4?' 4x4':''}</div><div class="sl">Features</div></div>
+        <div class="mi">${extCell}${intCell}${fpCell}</div>
+        <div class="mf">
+          <div class="mn">${m.name}</div>
+          <div class="ms">${m.series||''}</div>
+          <div class="mch">${m.chassis||'N/A'}</div>
+          <div class="lw"><div class="ll">Layout front → rear</div><div class="lb">${lz}</div></div>
+          <div class="mx">
+            <div><div class="xv">${m.length?(m.length/100).toFixed(1)+'m':'?'}</div><div class="xl">Length</div></div>
+            <div><div class="xv">${m.seats||'?'}</div><div class="xl">Seats</div></div>
+            <div><div class="xv">${m.berths||'?'}</div><div class="xl">Berths</div></div>
+            <div><div class="xv" style="font-size:11px">${m.poptop?'Pop':'Fixed'}${m.fourx4?' 4x4':''}</div><div class="xl">Type</div></div>
           </div>
         </div>
       </div>`;
     }).join('');
-    const mc = (b.models||[]).length;
-    return `<div class="brand-section${hl}" data-b="${b.name}">
-      <div class="brand-hdr" onclick="this.parentElement.classList.toggle('open')">
-        <div class="bh-left">
-          <div class="bh-init">${b.name.charAt(0)}</div>
-          <div><div class="bh-name">${b.name}</div><div class="bh-meta">${b.country} · est. ${b.founded||'?'} · ${mc} model${mc!==1?'s':''}</div></div>
-        </div>
-        <div class="bh-tags">${tags.join('')}</div>
-        <div class="tog">▼</div>
+    return `<div class="bs${hl}" data-b="${b.name}">
+      <div class="bh" onclick="this.parentElement.classList.toggle('op')">
+        <div class="bl"><div class="bi">${b.name.charAt(0)}</div><div><div class="bn">${b.name}</div><div class="bm">${b.country} · est. ${b.founded||'?'} · ${mc} model${mc!==1?'s':''}</div></div></div>
+        <div class="bt">${tg.join('')}</div>
+        <div class="ti">▼</div>
       </div>
-      <div class="m-grid">${models}</div>
+      <div class="mg">${models}</div>
     </div>`;
   }).join('');
 }
 
 go();
-// Auto-open Tourne Mobil
-setTimeout(()=>{ document.querySelector('[data-b="Tourne Mobil"]')?.classList.add('open'); },100);
+setTimeout(()=>{document.querySelector('[data-b="Tourne Mobil"]')?.classList.add('op');},50);
 </script>
 </body>
 </html>
